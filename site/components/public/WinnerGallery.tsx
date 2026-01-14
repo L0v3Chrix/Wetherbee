@@ -40,38 +40,40 @@ export default function WinnerGallery({ winners }: WinnerGalleryProps) {
 
   return (
     <div>
-      {/* Filter Tabs */}
+      {/* Filter Tabs - Horizontally scrollable on mobile */}
       {years.length > 1 && (
-        <div className="mb-8 flex flex-wrap justify-center gap-2">
-          <button
-            onClick={() => setSelectedYear('all')}
-            className={`rounded-full px-6 py-2 text-sm font-medium transition-colors ${
-              selectedYear === 'all'
-                ? 'bg-primary-600 text-white'
-                : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
-            }`}
-          >
-            All Winners
-          </button>
-          {years.map((year) => (
+        <div className="-mx-4 mb-6 sm:mx-0 sm:mb-8">
+          <div className="flex gap-2 overflow-x-auto px-4 pb-2 scrollbar-hide sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0">
             <button
-              key={year}
-              onClick={() => setSelectedYear(year)}
-              className={`rounded-full px-6 py-2 text-sm font-medium transition-colors ${
-                selectedYear === year
+              onClick={() => setSelectedYear('all')}
+              className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-colors sm:px-6 ${
+                selectedYear === 'all'
                   ? 'bg-primary-600 text-white'
                   : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
               }`}
             >
-              {year}
+              All Winners
             </button>
-          ))}
+            {years.map((year) => (
+              <button
+                key={year}
+                onClick={() => setSelectedYear(year)}
+                className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition-colors sm:px-6 ${
+                  selectedYear === year
+                    ? 'bg-primary-600 text-white'
+                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                }`}
+              >
+                {year}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 
       {/* Winners Count */}
-      <div className="mb-6 text-center">
-        <p className="text-lg text-neutral-600">
+      <div className="mb-4 text-center sm:mb-6">
+        <p className="text-base text-neutral-600 sm:text-lg">
           <span className="font-bold text-primary-600">
             {filteredWinners.length}
           </span>{' '}
@@ -82,14 +84,33 @@ export default function WinnerGallery({ winners }: WinnerGalleryProps) {
 
       {/* Winners Grid */}
       {sortedWinners.length > 0 ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {sortedWinners.map((winner) => (
             <WinnerCard key={winner.id} {...winner} />
           ))}
         </div>
       ) : (
-        <div className="rounded-xl border border-neutral-200 bg-white p-12 text-center">
-          <p className="text-neutral-500">No winners found for this filter.</p>
+        <div className="rounded-xl border border-neutral-200 bg-white p-8 text-center sm:p-12">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-neutral-100">
+            <svg
+              className="h-8 w-8 text-neutral-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+          </div>
+          <p className="text-base font-medium text-neutral-900">No winners found</p>
+          <p className="mt-1 text-sm text-neutral-500">
+            Try selecting a different year filter
+          </p>
         </div>
       )}
     </div>

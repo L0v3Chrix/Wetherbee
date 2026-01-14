@@ -21,48 +21,50 @@ export default function StepTwo({ register, errors, control }: StepTwoProps) {
   const minChars = 50
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       <div>
-        <h2 className="mb-2 text-2xl font-bold text-neutral-900">
+        <h2 className="mb-1.5 text-xl font-bold text-neutral-900 sm:mb-2 sm:text-2xl">
           Your Story
         </h2>
-        <p className="text-neutral-600">
+        <p className="text-sm text-neutral-600 sm:text-base">
           Share your journey: where you&apos;ve been and where you&apos;re going
         </p>
       </div>
 
       <div>
-        <label htmlFor="story" className="mb-2 block text-sm font-medium text-neutral-700">
-          Tell us your story <span className="text-red-500">*</span>
+        <label htmlFor="story" className="mb-1.5 block text-sm font-medium text-neutral-700 sm:mb-2">
+          Tell us your story <span className="text-red-500" aria-label="required">*</span>
         </label>
         <textarea
           {...register('story')}
           id="story"
-          rows={12}
-          className="textarea resize-none"
+          rows={6}
+          className="textarea resize-none sm:min-h-[280px]"
           placeholder="This is your space to share your journey. Tell us about:
 
 • Where you came from and what brought you to Oxford House
 • The challenges you've overcome
 • What recovery means to you
 • Your goals and dreams for the future
-• How you're building your new life
 
-There's no right or wrong way to tell your story. We want to hear from YOU."
+There's no right or wrong way to tell your story."
+          aria-describedby="story-count story-error"
+          aria-invalid={errors.story ? 'true' : 'false'}
         />
 
         {/* Character Counter */}
-        <div className="mt-2 flex items-center justify-between text-xs">
+        <div id="story-count" className="mt-1.5 flex items-center justify-between text-[11px] sm:mt-2 sm:text-xs">
           <span
             className={
               characterCount < minChars
                 ? 'text-amber-600'
-                : 'text-neutral-500'
+                : 'text-green-600'
             }
+            aria-live="polite"
           >
             {characterCount < minChars
               ? `${minChars - characterCount} more characters needed`
-              : 'Minimum met ✓'}
+              : 'Minimum met'}
           </span>
           <span
             className={
@@ -73,19 +75,21 @@ There's no right or wrong way to tell your story. We want to hear from YOU."
                   : 'text-neutral-500'
             }
           >
-            {characterCount} / {maxChars}
+            {characterCount.toLocaleString()} / {maxChars.toLocaleString()}
           </span>
         </div>
 
         {errors.story && (
-          <p className="mt-1 text-sm text-red-600">{errors.story.message}</p>
+          <p id="story-error" className="mt-1 text-sm text-red-600" role="alert">
+            {errors.story.message}
+          </p>
         )}
       </div>
 
       {/* Encouragement Box */}
-      <div className="rounded-lg border border-primary-200 bg-primary-50 p-4">
-        <p className="text-sm text-primary-800">
-          <strong>💙 Remember:</strong> Your story has power. Sharing it with us
+      <div className="rounded-lg border border-primary-200 bg-primary-50 p-3 sm:p-4">
+        <p className="text-xs text-primary-800 sm:text-sm">
+          <span aria-hidden="true">💙 </span><strong>Remember:</strong> Your story has power. Sharing it with us
           is an act of courage, and we&apos;re honored to read it.
         </p>
       </div>
