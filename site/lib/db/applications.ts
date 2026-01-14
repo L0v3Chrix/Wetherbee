@@ -28,7 +28,7 @@ export async function createApplication(data: {
       ${data.email},
       ${data.phone},
       ${data.oxford_house},
-      ${data.move_in_date},
+      ${data.move_in_date.toISOString()},
       ${data.story},
       ${data.why_deserve},
       ${data.ip_address},
@@ -49,31 +49,56 @@ export async function getApplications(filters?: {
 }): Promise<{ applications: Application[]; total: number }> {
   const { status, search, limit = 50, offset = 0 } = filters || {}
 
-  let query = sql`SELECT * FROM applications WHERE 1=1`
+  // Build conditions based on filters
+  if (status && search) {
+    const searchPattern = `%${search}%`
+    const countResult = await sql`
+      SELECT COUNT(*) FROM applications
+      WHERE status = ${status}
+      AND (name ILIKE ${searchPattern} OR email ILIKE ${searchPattern} OR oxford_house ILIKE ${searchPattern})
+    `
+    const total = parseInt(countResult.rows[0].count)
 
-  if (status) {
-    query = sql`${query} AND status = ${status}`
+    const result = await sql`
+      SELECT * FROM applications
+      WHERE status = ${status}
+      AND (name ILIKE ${searchPattern} OR email ILIKE ${searchPattern} OR oxford_house ILIKE ${searchPattern})
+      ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}
+    `
+    return { applications: result.rows as Application[], total }
+  } else if (status) {
+    const countResult = await sql`SELECT COUNT(*) FROM applications WHERE status = ${status}`
+    const total = parseInt(countResult.rows[0].count)
+
+    const result = await sql`
+      SELECT * FROM applications WHERE status = ${status}
+      ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}
+    `
+    return { applications: result.rows as Application[], total }
+  } else if (search) {
+    const searchPattern = `%${search}%`
+    const countResult = await sql`
+      SELECT COUNT(*) FROM applications
+      WHERE name ILIKE ${searchPattern} OR email ILIKE ${searchPattern} OR oxford_house ILIKE ${searchPattern}
+    `
+    const total = parseInt(countResult.rows[0].count)
+
+    const result = await sql`
+      SELECT * FROM applications
+      WHERE name ILIKE ${searchPattern} OR email ILIKE ${searchPattern} OR oxford_house ILIKE ${searchPattern}
+      ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}
+    `
+    return { applications: result.rows as Application[], total }
+  } else {
+    const countResult = await sql`SELECT COUNT(*) FROM applications`
+    const total = parseInt(countResult.rows[0].count)
+
+    const result = await sql`
+      SELECT * FROM applications
+      ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}
+    `
+    return { applications: result.rows as Application[], total }
   }
-
-  if (search) {
-    query = sql`${query} AND (
-      name ILIKE ${'%' + search + '%'} OR
-      email ILIKE ${'%' + search + '%'} OR
-      oxford_house ILIKE ${'%' + search + '%'}
-    )`
-  }
-
-  // Get total count
-  const countResult = await sql`SELECT COUNT(*) FROM (${query}) AS filtered`
-  const total = parseInt(countResult.rows[0].count)
-
-  // Get paginated results
-  query = sql`${query} ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`
-
-  const result = await query
-  const applications = result.rows as Application[]
-
-  return { applications, total }
 }
 
 // Get single application by ID

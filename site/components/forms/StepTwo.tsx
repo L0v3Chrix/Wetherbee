@@ -27,7 +27,7 @@ export default function StepTwo({ register, errors, control }: StepTwoProps) {
           Your Story
         </h2>
         <p className="text-neutral-600">
-          Share your journey: where you've been and where you're going
+          Share your journey: where you&apos;ve been and where you&apos;re going
         </p>
       </div>
 
@@ -86,7 +86,7 @@ There's no right or wrong way to tell your story. We want to hear from YOU."
       <div className="rounded-lg border border-primary-200 bg-primary-50 p-4">
         <p className="text-sm text-primary-800">
           <strong>💙 Remember:</strong> Your story has power. Sharing it with us
-          is an act of courage, and we're honored to read it.
+          is an act of courage, and we&apos;re honored to read it.
         </p>
       </div>
     </div>

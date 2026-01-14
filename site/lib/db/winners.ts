@@ -51,23 +51,27 @@ export async function getPublishedWinners(filters?: {
 }): Promise<{ winners: Winner[]; total: number }> {
   const { year, limit = 50, offset = 0 } = filters || {}
 
-  let query = sql`SELECT * FROM winners WHERE is_published = true`
-
   if (year) {
-    query = sql`${query} AND year = ${year}`
+    const countResult = await sql`
+      SELECT COUNT(*) FROM winners WHERE is_published = true AND year = ${year}
+    `
+    const total = parseInt(countResult.rows[0].count)
+
+    const result = await sql`
+      SELECT * FROM winners WHERE is_published = true AND year = ${year}
+      ORDER BY year DESC, display_order ASC LIMIT ${limit} OFFSET ${offset}
+    `
+    return { winners: result.rows as Winner[], total }
+  } else {
+    const countResult = await sql`SELECT COUNT(*) FROM winners WHERE is_published = true`
+    const total = parseInt(countResult.rows[0].count)
+
+    const result = await sql`
+      SELECT * FROM winners WHERE is_published = true
+      ORDER BY year DESC, display_order ASC LIMIT ${limit} OFFSET ${offset}
+    `
+    return { winners: result.rows as Winner[], total }
   }
-
-  // Get total count
-  const countResult = await sql`SELECT COUNT(*) FROM (${query}) AS filtered`
-  const total = parseInt(countResult.rows[0].count)
-
-  // Get paginated results
-  query = sql`${query} ORDER BY year DESC, display_order ASC LIMIT ${limit} OFFSET ${offset}`
-
-  const result = await query
-  const winners = result.rows as Winner[]
-
-  return { winners, total }
 }
 
 // Get all winners (admin)

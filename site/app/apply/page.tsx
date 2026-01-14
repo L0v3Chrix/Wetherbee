@@ -54,9 +54,9 @@ export default function ApplyPage() {
           </h3>
           <p className="text-sm text-primary-800">
             Winners are announced on the{' '}
-            <strong>first Monday of each month</strong>. You'll receive an email
-            with the decision. If not selected this month, you're welcome to
-            reapply if you're still within your 60-day window.
+            <strong>first Monday of each month</strong>. You&apos;ll receive an email
+            with the decision. If not selected this month, you&apos;re welcome to
+            reapply if you&apos;re still within your 60-day window.
           </p>
         </div>
 

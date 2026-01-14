@@ -94,7 +94,7 @@ Be honest and specific. We want to understand how this scholarship will make a r
       {/* Final Encouragement */}
       <div className="rounded-lg border border-accent-200 bg-accent-50 p-4">
         <p className="text-sm text-accent-900">
-          <strong>🏆 Almost there!</strong> You're one step away from completing
+          <strong>🏆 Almost there!</strong> You&apos;re one step away from completing
           your application. Thank you for sharing your story with us.
         </p>
       </div>

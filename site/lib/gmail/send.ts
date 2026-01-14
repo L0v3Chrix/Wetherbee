@@ -55,12 +55,12 @@ export async function sendEmail({
       subject,
       template,
       status: 'sent',
-      gmail_message_id: messageId,
+      gmail_message_id: messageId ?? undefined,
       related_application_id: relatedApplicationId,
       sent_by: sentBy,
     })
 
-    return { success: true, messageId }
+    return { success: true, messageId: messageId ?? undefined }
   } catch (error) {
     console.error('Failed to send email:', error)
 

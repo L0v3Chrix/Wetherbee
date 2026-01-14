@@ -16,7 +16,7 @@ export default function HomePage() {
                 New Beginnings Scholarship
               </div>
               <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl">
-                Honoring Matt Wetherbee's Legacy
+                Honoring Matt Wetherbee&apos;s Legacy
               </h1>
               <p className="mb-8 text-lg leading-relaxed text-primary-100 md:text-xl">
                 Supporting Oxford House residents in Travis County during their
@@ -84,7 +84,7 @@ export default function HomePage() {
           <p className="text-lg leading-relaxed text-neutral-600">
             The Wetherbee Foundation exists to support individuals in their
             first 60 days at Oxford House in Travis County. This critical
-            period sets the foundation for lasting recovery. We honor Matt's
+            period sets the foundation for lasting recovery. We honor Matt&apos;s
             belief that everyone deserves a chance at a new beginning.
           </p>
         </div>
@@ -98,7 +98,7 @@ export default function HomePage() {
               Celebrating Our Winners
             </h2>
             <p className="text-lg text-neutral-600">
-              Every month, we celebrate someone's commitment to recovery
+              Every month, we celebrate someone&apos;s commitment to recovery
             </p>
           </div>
 

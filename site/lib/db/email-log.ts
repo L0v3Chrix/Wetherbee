@@ -43,27 +43,46 @@ export async function getEmailLogs(filters?: {
 }): Promise<{ logs: EmailLog[]; total: number }> {
   const { limit = 50, offset = 0, status, template } = filters || {}
 
-  let query = sql`SELECT * FROM email_log WHERE 1=1`
+  // Build conditions based on filters
+  if (status && template) {
+    const countResult = await sql`
+      SELECT COUNT(*) FROM email_log WHERE status = ${status} AND template = ${template}
+    `
+    const total = parseInt(countResult.rows[0].count)
 
-  if (status) {
-    query = sql`${query} AND status = ${status}`
+    const result = await sql`
+      SELECT * FROM email_log WHERE status = ${status} AND template = ${template}
+      ORDER BY sent_at DESC LIMIT ${limit} OFFSET ${offset}
+    `
+    return { logs: result.rows as EmailLog[], total }
+  } else if (status) {
+    const countResult = await sql`SELECT COUNT(*) FROM email_log WHERE status = ${status}`
+    const total = parseInt(countResult.rows[0].count)
+
+    const result = await sql`
+      SELECT * FROM email_log WHERE status = ${status}
+      ORDER BY sent_at DESC LIMIT ${limit} OFFSET ${offset}
+    `
+    return { logs: result.rows as EmailLog[], total }
+  } else if (template) {
+    const countResult = await sql`SELECT COUNT(*) FROM email_log WHERE template = ${template}`
+    const total = parseInt(countResult.rows[0].count)
+
+    const result = await sql`
+      SELECT * FROM email_log WHERE template = ${template}
+      ORDER BY sent_at DESC LIMIT ${limit} OFFSET ${offset}
+    `
+    return { logs: result.rows as EmailLog[], total }
+  } else {
+    const countResult = await sql`SELECT COUNT(*) FROM email_log`
+    const total = parseInt(countResult.rows[0].count)
+
+    const result = await sql`
+      SELECT * FROM email_log
+      ORDER BY sent_at DESC LIMIT ${limit} OFFSET ${offset}
+    `
+    return { logs: result.rows as EmailLog[], total }
   }
-
-  if (template) {
-    query = sql`${query} AND template = ${template}`
-  }
-
-  // Get total count
-  const countResult = await sql`SELECT COUNT(*) FROM (${query}) AS filtered`
-  const total = parseInt(countResult.rows[0].count)
-
-  // Get paginated results
-  query = sql`${query} ORDER BY sent_at DESC LIMIT ${limit} OFFSET ${offset}`
-
-  const result = await query
-  const logs = result.rows as EmailLog[]
-
-  return { logs, total }
 }
 
 // Get email logs for specific application

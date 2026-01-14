@@ -105,7 +105,7 @@ export default function ApplicationForm() {
         throw new Error(error.message || 'Failed to submit application')
       }
 
-      const result = await response.json()
+      await response.json()
 
       // Clear saved data
       if (typeof window !== 'undefined') {

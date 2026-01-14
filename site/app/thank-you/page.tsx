@@ -46,7 +46,7 @@ export default function ThankYouPage() {
                   Confirmation Email
                 </h3>
                 <p className="text-sm text-neutral-600">
-                  Check your inbox for a confirmation email. If you don't see
+                  Check your inbox for a confirmation email. If you don&apos;t see
                   it, check your spam folder.
                 </p>
               </div>
@@ -79,7 +79,7 @@ export default function ThankYouPage() {
                 </h3>
                 <p className="text-sm text-neutral-600">
                   Winners are announced on the{' '}
-                  <strong>first Monday of each month</strong>. You'll receive
+                  <strong>first Monday of each month</strong>. You&apos;ll receive
                   an email with the decision.
                 </p>
               </div>
