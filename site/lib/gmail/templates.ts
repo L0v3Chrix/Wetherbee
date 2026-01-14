@@ -85,7 +85,7 @@ export function applicantConfirmationEmail(name: string): string {
       </div>
       <div class="footer">
         <p>Matt Wetherbee New Beginnings Scholarship<br>
-        Supporting Oxford House residents in Travis County</p>
+        Supporting Oxford House residents in Travis and Williamson County</p>
       </div>
     </body>
     </html>

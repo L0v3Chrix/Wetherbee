@@ -11,7 +11,7 @@ export default function ApplyPage() {
             New Beginnings Scholarship
           </h1>
           <p className="text-base text-neutral-600 sm:text-lg">
-            Application for Oxford House residents in Travis County
+            Application for Oxford House residents in Travis and Williamson County
           </p>
         </div>
 
@@ -23,7 +23,7 @@ export default function ApplyPage() {
           <ul className="space-y-1.5 text-sm text-accent-800 sm:space-y-2">
             <li className="flex items-start gap-2">
               <span className="shrink-0" aria-hidden="true">✓</span>
-              <span>Current resident of an Oxford House in Travis County</span>
+              <span>Current resident of an Oxford House in Travis and Williamson County</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="shrink-0" aria-hidden="true">✓</span>

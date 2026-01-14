@@ -19,7 +19,7 @@ export default function HomePage() {
                 Honoring Matt Wetherbee&apos;s Legacy
               </h1>
               <p className="mb-6 text-base leading-relaxed text-primary-100 sm:mb-8 sm:text-lg md:text-xl">
-                Supporting Oxford House residents in Travis County during their
+                Supporting Oxford House residents in Travis and Williamson County during their
                 first 60 days of residency. Because every recovery journey
                 deserves to be celebrated.
               </p>
@@ -84,7 +84,7 @@ export default function HomePage() {
           </h2>
           <p className="text-base leading-relaxed text-neutral-600 sm:text-lg">
             The Wetherbee Foundation exists to support individuals in their
-            first 60 days at Oxford House in Travis County. This critical
+            first 60 days at Oxford House in Travis and Williamson County. This critical
             period sets the foundation for lasting recovery. We honor Matt&apos;s
             belief that everyone deserves a chance at a new beginning.
           </p>

@@ -20,7 +20,7 @@ const merriweather = Merriweather({
 export const metadata: Metadata = {
   title: 'Wetherbee Foundation | New Beginnings Scholarship',
   description:
-    'Supporting Oxford House residents in Travis County through scholarships honoring Matt Wetherbee\'s legacy.',
+    'Supporting Oxford House residents in Travis and Williamson County through scholarships honoring Matt Wetherbee\'s legacy.',
   keywords: [
     'scholarship',
     'oxford house',

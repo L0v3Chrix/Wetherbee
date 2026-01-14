@@ -52,7 +52,7 @@ export default function Footer() {
               Get Involved
             </h3>
             <p className="mt-4 text-sm text-neutral-400">
-              Are you an Oxford House resident in Travis County? Apply for our
+              Are you an Oxford House resident in Travis and Williamson County? Apply for our
               New Beginnings Scholarship.
             </p>
             <Link
